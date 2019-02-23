@@ -1,0 +1,13 @@
+/SDL2d.dll
+/.settings
+/target
+/.classpath
+/.project
+/src/main/native
+SDL2d.dll
+sdl4j.dll
+sdl4j.exp
+sdl4j.ilk
+sdl4j.lib
+sdl4j.pdb
+SDL2.dll
