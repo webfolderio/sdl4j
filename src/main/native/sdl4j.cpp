@@ -243,28 +243,18 @@ void sdl4j_SDL_RenderPresent(JNIEnv *env, jclass klass, jobject renderer) {
 jobject sdl4j_SDL_PollEvent(JNIEnv *env, jclass klass) {
     SDL_Event event_;
     int ret = SDL_PollEvent(&event_);
-    JavaClass *eventKlass = nullptr;
-    JavaMethod *eventConstructor = nullptr;
     jobject event = nullptr;
     if (ret == 1) {
-        switch (event_.type) {
-            case SDL_KEYUP:
-            case SDL_KEYDOWN:
-                eventKlass = new JavaClass{ env, "io/webfolder/sdl4j/SDL_KeyboardEvent" };
-                eventConstructor = new JavaMethod{ env, "io/webfolder/sdl4j/SDL_KeyboardEvent", "<init>", "(II)V" };
-                event = env->NewObject(eventKlass->get(), eventConstructor->get(), event_.type, event_.key.keysym.sym);
-            break;
-            default:
-                eventKlass = new JavaClass{ env, "io/webfolder/sdl4j/SDL_Event" };
-                eventConstructor = new JavaMethod{ env, "io/webfolder/sdl4j/SDL_Event", "<init>", "(I)V" };
-                event = env->NewObject(eventKlass->get(), eventConstructor->get(), event_.type);
+        JavaClass ek{ env, "io/webfolder/sdl4j/SDL_Event" };
+        JavaMethod ec{ env, "io/webfolder/sdl4j/SDL_Event", "<init>", "(ILio/webfolder/sdl4j/SDL_KeyboardEvent;)V" };
+        if (event_.type == SDL_KEYUP || event_.type == SDL_KEYDOWN) {
+            JavaClass kec{ env, "io/webfolder/sdl4j/SDL_KeyboardEvent" };
+            JavaMethod kem{ env, "io/webfolder/sdl4j/SDL_KeyboardEvent", "<init>", "(I)V" };
+            jobject keo = env->NewObject(kec.get(), kem.get(), event_.key.keysym.sym);
+            event = env->NewObject(ek.get(), ec.get(), event_.type, keo);
+        } else {
+            event = env->NewObject(ek.get(), ec.get(), event_.type, nullptr);
         }
-    }
-    if (eventKlass) {
-        delete eventKlass;
-    }
-    if (eventConstructor) {
-        delete eventConstructor;
     }
     return event;
 }

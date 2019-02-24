@@ -20,19 +20,23 @@ import static io.webfolder.sdl4j.SDL.SDL_RenderSetLogicalSize;
 import static io.webfolder.sdl4j.SDL.SDL_SetRenderDrawColor;
 
 /**
- * @see http://headerphile.com/sdl2/sdl2-part-3-drawing-rectangles
+ * @see http://headerphile.com/sdl2/sdl2-part-4-making-things-happen
  */
-public class Game {
+public class Game4 {
 
     private int posX = 100;
+
     private int posY = 200;
+
     private int sizeX = 300;
+
     private int sizeY = 400;
 
-    SDL_Window window;
-    SDL_Renderer renderer;
+    private SDL_Window window;
 
-    SDL_Rect playerPos = new SDL_Rect();
+    private SDL_Renderer renderer;
+
+    private SDL_Rect playerPos = new SDL_Rect();
 
     public boolean InitEverything() {
         if (!InitSDL())
@@ -63,18 +67,15 @@ public class Game {
             System.err.println("Failed to create window : " + SDL_GetError());
             return false;
         }
-
         return true;
     }
 
     public boolean CreateRenderer() {
         renderer = SDL_CreateRenderer(window, -1, 0);
-
         if (renderer == null) {
             System.err.println("Failed to create renderer : " + SDL_GetError());
             return false;
         }
-
         return true;
     }
 
@@ -107,12 +108,12 @@ public class Game {
         boolean loop = true;
 
         while (loop) {
-            SDL_Event event = null;
+            SDL_Event event;
             while ((event = SDL_PollEvent()) != null) {
                 if (event.type == SDL_QUIT)
                     loop = false;
                 else if (event.type == SDL_KEYDOWN) {
-                    switch (event.toKeyboardEvent().sym) {
+                    switch (event.key.keysym.sym) {
                     case SDLK_RIGHT:
                         ++playerPos.x;
                         break;
@@ -140,11 +141,10 @@ public class Game {
         }
     }
 
-    public static void main(String args[]) {
-        Game game = new Game();
-        if (!game.InitEverything()) {
+    public static void main(String[] args) {
+        Game4 game = new Game4();
+        if (!game.InitEverything())
             System.exit(-1);
-        }
 
         // Initlaize our playe
         game.playerPos.x = 20;

@@ -1,11 +1,10 @@
 package io.webfolder.sdl4j;
 
-public class SDL_KeyboardEvent extends SDL_Event {
+public class SDL_KeyboardEvent {
 
-    public final int sym;
+    public final SDL_Keysym keysym;
 
-    public SDL_KeyboardEvent(int type, int sym) {
-        super(type);
-        this.sym = sym;
+    public SDL_KeyboardEvent(int sym) {
+        this.keysym = new SDL_Keysym(sym);
     }
 }
