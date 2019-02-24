@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.5)
 project (sdl4j CXX)
 
 set(VCPKG_TARGET_ARCHITECTURE x64)
-set(VCPKG_LIBRARY_LINKAGE static)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_SUPPRESS_REGENERATION ON)
 set(CMAKE_CXX_STANDARD 14)
@@ -16,6 +15,9 @@ INCLUDE_DIRECTORIES(${JAVA_INCLUDE_PATH2})
 
 if(MSVC)
   set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT sdl4j)
+
+  set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+  set(CMAKE_CXX_FLAGS_DEBUG "/ZI /Od /MTd")
 
   add_definitions(-D_WIN32_WINNT=0x0601)
 
@@ -30,7 +32,6 @@ if(MSVC)
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${PROJECT_BINARY_DIR}/../../../../src/main/resources/META-INF)
 endif(MSVC)
 
-
 add_library(sdl4j SHARED sdl4j.cpp)
 
-target_link_libraries(sdl4j PRIVATE SDL2::SDL2 SDL2::SDL2main)
+target_link_libraries(sdl4j PRIVATE SDL2::SDL2-static)

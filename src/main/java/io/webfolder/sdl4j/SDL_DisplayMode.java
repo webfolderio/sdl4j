@@ -2,13 +2,14 @@ package io.webfolder.sdl4j;
 
 public class SDL_DisplayMode {
 
-    long format;
-    /** < pixel format */
-    int w;
-    /** < width, in screen coordinates */
-    int h;
-    /** < height, in screen coordinates */
-    int refresh_rate; /** < refresh rate (or zero for unspecified) */
+    private long format; /* pixel format */
+
+    private int w; /* width, in screen coordinates */
+
+    private int h; /* height, in screen coordinates */
+
+    private int refresh_rate; /* refresh rate (or zero for unspecified) */
+
     public long getFormat() {
         return format;
     }

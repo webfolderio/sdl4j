@@ -294,7 +294,7 @@ public class Game5 {
         game.AddEnemy();
         game.AddEnemy();
         game.AddEnemy();
-
+        
         // Init top and bottom bar
         game.topBar.x = 0;
         game.topBar.y = 0;
