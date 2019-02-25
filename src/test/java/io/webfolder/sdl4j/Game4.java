@@ -20,6 +20,8 @@ import static io.webfolder.sdl4j.SDL.SDL_RenderSetLogicalSize;
 import static io.webfolder.sdl4j.SDL.SDL_SetRenderDrawColor;
 
 /**
+ * This piece of code was originally from headerphile
+ *
  * @see http://headerphile.com/sdl2/sdl2-part-4-making-things-happen
  */
 public class Game4 {
