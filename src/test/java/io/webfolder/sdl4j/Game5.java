@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * This piece of code was originally from headerphile
+ *
  * @see http://headerphile.com/sdl2/sdl2-part-5-collision-detection
  */
 public class Game5 {
